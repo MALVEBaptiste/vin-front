@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Box, Typography, Button, Paper, Stack, CircularProgress, Alert } from '@mui/material';
+import { Box, Typography, Button, Paper, Stack, Alert } from '@mui/material';
 import PageContainer from '../components/layout/PageContainer';
 import WaitingRoom from '../components/game/WaitingRoom';
 import RoundPhaseIndicator from '../components/round/RoundPhaseIndicator';
@@ -18,6 +18,7 @@ import { GameStatus } from '../types/game.types';
 import { RoundStatus } from '../types/round.types';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import { WineLoader } from '../components/common/WineLoader';
 
 export default function GameRoomPage() {
   const { code } = useParams<{ code: string }>();
@@ -54,7 +55,7 @@ export default function GameRoomPage() {
     return (
       <PageContainer>
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-          <CircularProgress color="secondary" />
+          <WineLoader size="medium" />
         </Box>
       </PageContainer>
     );
@@ -128,7 +129,7 @@ export default function GameRoomPage() {
               {/* SCORING Phase — Players wait */}
               {currentRound.status === RoundStatus.SCORING && !isHost && (
                 <Box sx={{ textAlign: 'center', py: 4 }}>
-                  <CircularProgress color="secondary" />
+                  <WineLoader size="medium" />
                   <Typography color="text.secondary" sx={{ mt: 2 }}>
                     L'hôte valide les réponses…
                   </Typography>

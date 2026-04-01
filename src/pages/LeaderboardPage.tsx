@@ -1,22 +1,22 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Typography,
-    Button,
-    Stack,
-    CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  Button,
+  Stack
 } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PageContainer from '../components/layout/PageContainer';
 import { useQuery } from '@tanstack/react-query';
 import { getLeaderboard } from '../api/game.api';
+import { WineLoader } from '../components/common/WineLoader';
 
 const MEDALS = ['🥇', '🥈', '🥉'];
 
@@ -39,7 +39,7 @@ export default function LeaderboardPage() {
         </Typography>
 
         {isLoading ? (
-          <CircularProgress color="secondary" sx={{ mx: 'auto' }} />
+         <WineLoader size="medium" />
         ) : (
           <TableContainer component={Paper} elevation={3}>
             <Table>

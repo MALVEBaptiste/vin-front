@@ -1,0 +1,118 @@
+/* Animation du remplissage du verre */
+@keyframes fillGlass {
+  0% {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 30%, 0% 30%);
+  }
+}
+
+/* Animation du flux de vin */
+@keyframes pouringWine {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+}
+
+/* Animation du liquide restant dans la bouteille */
+@keyframes emptyBottle {
+  0% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+  }
+}
+
+/* Animation de basculement de la bouteille */
+@keyframes tiltBottle {
+  0%, 20% {
+    transform: rotate(0deg) translateX(0);
+  }
+  50%, 100% {
+    transform: rotate(-45deg) translateX(-15px);
+  }
+}
+
+/* Conteneur principal */
+.wine-loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Verre */
+.wine-loader .glass {
+  position: absolute;
+  bottom: 5%;
+  left: 0%;
+  animation: none;
+}
+
+/* Remplissage du verre */
+.wine-loader .wine-fill {
+  animation: fillGlass 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+/* Bouteille */
+.wine-loader .bottle {
+  position: absolute;
+  bottom: 35%;
+  right: -10%;
+  transform-origin: bottom center;
+  animation: tiltBottle 3s ease-in-out infinite;
+}
+
+/* Vin qui reste dans la bouteille */
+.wine-loader .wine-remaining {
+  animation: emptyBottle 3s ease-in-out infinite;
+}
+
+/* Flux de vin versé */
+.wine-loader .wine-stream {
+  position: absolute;
+  width: 30px;
+  height: 70px;
+  bottom: 20%;
+  right: 50%;
+  opacity: 0;
+}
+
+.wine-loader .wine-stream path {
+  animation: pouringWine 3s ease-in-out infinite;
+}
+
+/* Texte de chargement */
+.wine-loader-text {
+  margin: 0;
+  font-size: 14px;
+  color: #8B4513;
+  font-weight: 500;
+  letter-spacing: 2px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Astuce pour une meilleure fluidité */
+.wine-loader svg {
+  filter: drop-shadow(0 2px 4px rgba(139, 69, 19, 0.1));
+}

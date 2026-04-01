@@ -1,23 +1,21 @@
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Typography,
-    Chip,
-    Stack,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Button,
-    Box,
-    CircularProgress,
-    Divider,
-    alpha,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  Chip,
+  Stack,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Box, Divider,
+  alpha
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -25,11 +23,12 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import {
-    getRoundScores,
-    getPlayerAnswers,
-    getGameLeaderboard,
+  getRoundScores,
+  getPlayerAnswers,
+  getGameLeaderboard,
 } from "../../api/round.api";
 import { RoundPhaseLabels } from "../../types/round.types";
+import { WineLoader } from "../common/WineLoader";
 
 interface RoundScoreboardProps {
   roundId: string;
@@ -161,7 +160,7 @@ export default function RoundScoreboard({
         <DialogContent sx={{ pt: 2 }}>
           {answersLoading ? (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <CircularProgress color="secondary" />
+              <WineLoader size="medium" />
             </Box>
           ) : (
             <Stack spacing={2}>

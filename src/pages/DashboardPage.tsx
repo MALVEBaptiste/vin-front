@@ -1,23 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
-    Box,
-    Paper,
-    Stack,
-    Typography,
-    Button,
-    CircularProgress,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Chip,
+  Box,
+  Paper,
+  Stack,
+  Typography,
+  Button, Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Chip
 } from '@mui/material';
 import PageContainer from '../components/layout/PageContainer';
 import { useAuth } from '../hooks/useAuth';
@@ -26,6 +24,7 @@ import { GameStatus } from '../types/game.types';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import InfoIcon from '@mui/icons-material/Info';
 import { useState } from 'react';
+import { WineLoader } from '../components/common/WineLoader';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -48,7 +47,7 @@ export default function DashboardPage() {
     return (
       <PageContainer>
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-          <CircularProgress color="secondary" />
+          <WineLoader size="medium" />
         </Box>
       </PageContainer>
     );
@@ -90,7 +89,7 @@ export default function DashboardPage() {
             </Typography>
           </Paper>
         </Stack>
-
+              
         {/* Games History */}
         <Box>
           <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -269,7 +268,7 @@ export default function DashboardPage() {
               </Stack>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setSelectedGameCode(null)}>Fermer</Button>
+              <Button variant="contained" onClick={() => setSelectedGameCode(null)}>Fermer</Button>
             </DialogActions>
           </Dialog>
         )}
