@@ -1,18 +1,19 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-    Box,
-    Typography,
-    Chip,
-    Button,
-    Stack,
-    TextField,
-} from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import type { Bottle } from '../../types/round.types';
-import { RoundPhase } from '../../types/round.types';
-import { useWineGrapes } from '../../hooks/useWineData';
-import { useRound } from '../../hooks/useRound';
-import { useGame } from '../../hooks/useGame';
+  Box,
+  Typography,
+  Chip,
+  Button,
+  Stack,
+  TextField,
+  Grid,
+} from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import type { Bottle } from "../../types/round.types";
+import { RoundPhase } from "../../types/round.types";
+import { useWineGrapes } from "../../hooks/useWineData";
+import { useRound } from "../../hooks/useRound";
+import { useGame } from "../../hooks/useGame";
 
 interface GrapePickerProps {
   bottles: Bottle[];
@@ -21,13 +22,19 @@ interface GrapePickerProps {
   onDone: () => void;
 }
 
-export default function GrapePicker({ bottles, roundId, onDone }: GrapePickerProps) {
+export default function GrapePicker({
+  bottles,
+  roundId,
+  onDone,
+}: GrapePickerProps) {
   const { submitAnswer } = useRound();
   const { isHost } = useGame();
   const [selections, setSelections] = useState<Record<string, string[]>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [filter, setFilter] = useState('');
-  const [activeBottle, setActiveBottle] = useState<string>(bottles[0]?.id ?? '');
+  const [filter, setFilter] = useState("");
+  const [activeBottle, setActiveBottle] = useState<string>(
+    bottles[0]?.id ?? "",
+  );
 
   const { data: grapes = [] } = useWineGrapes();
 
@@ -55,7 +62,7 @@ export default function GrapePicker({ bottles, roundId, onDone }: GrapePickerPro
         roundId,
         bottleId: bottle.id,
         roundPhase: RoundPhase.GRAPE,
-        value: grapeList.join(', '),
+        value: grapeList.join(", "),
       });
     }
     setSubmitted(true);
@@ -69,24 +76,30 @@ export default function GrapePicker({ bottles, roundId, onDone }: GrapePickerPro
         Quel(s) cépage(s) pour chaque bouteille ?
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', flexWrap: 'wrap' }}>
+      <Grid container spacing={1}>
         {bottles.map((b) => {
           const sel = selections[b.id] ?? [];
           return (
-            <Chip
-              key={b.id}
-              label={`Bouteille ${b.position}${sel.length ? ` (${sel.length})` : ''}`}
-              onClick={() => setActiveBottle(b.id)}
-              color={activeBottle === b.id ? 'secondary' : 'default'}
-              variant={activeBottle === b.id ? 'filled' : 'outlined'}
-            />
+            <Grid key={b.id} size={3}>
+              <Chip
+                key={b.id}
+                label={`Bouteille ${b.position}${sel.length ? ` (${sel.length})` : ""}`}
+                onClick={() => setActiveBottle(b.id)}
+                color={activeBottle === b.id ? "secondary" : "default"}
+                variant={activeBottle === b.id ? "filled" : "outlined"}
+              />
+            </Grid>
           );
         })}
-      </Box>
+      </Grid>
 
       {activeSelections.length > 0 && (
-        <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-          <Typography variant="caption" color="text.secondary" sx={{ mr: 1, alignSelf: 'center' }}>
+        <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ mr: 1, alignSelf: "center" }}
+          >
             Sélection :
           </Typography>
           {activeSelections.map((g) => (
@@ -109,16 +122,24 @@ export default function GrapePicker({ bottles, roundId, onDone }: GrapePickerPro
         disabled={submitAnswer.isPending}
       />
 
-      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', maxHeight: 200, overflowY: 'auto' }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 0.5,
+          flexWrap: "wrap",
+          maxHeight: 200,
+          overflowY: "auto",
+        }}
+      >
         {filtered.map((g) => (
           <Chip
             key={g.id}
             label={g.name}
             onClick={() => handleToggle(activeBottle, g.name)}
-            color={activeSelections.includes(g.name) ? 'secondary' : 'default'}
-            variant={activeSelections.includes(g.name) ? 'filled' : 'outlined'}
+            color={activeSelections.includes(g.name) ? "secondary" : "default"}
+            variant={activeSelections.includes(g.name) ? "filled" : "outlined"}
             disabled={submitAnswer.isPending}
-            sx={{ cursor: 'pointer' }}
+            sx={{ cursor: "pointer" }}
           />
         ))}
       </Box>
@@ -133,10 +154,17 @@ export default function GrapePicker({ bottles, roundId, onDone }: GrapePickerPro
         </Button>
       ) : (
         <Stack spacing={1}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              justifyContent: "center",
+            }}
+          >
             <CheckCircleIcon color="success" />
             <Typography color="success.main">
-              {isHost ? 'Réponses enregistrées' : "En attente de l'hôte…"}
+              {isHost ? "Réponses enregistrées" : "En attente de l'hôte…"}
             </Typography>
           </Box>
           <Button
