@@ -11,6 +11,7 @@ import {
     Divider,
     Box,
     Chip,
+    TextField,
 } from '@mui/material';
 import type { Bottle } from '../../types/round.types';
 import { useRound } from '../../hooks/useRound';
@@ -26,6 +27,7 @@ interface BottleInput {
   trueColor: string;
   trueGrape: string[];
   trueGlassPosition: string;
+  trueYear: string;
 }
 
 export default function HostValidationForm({ bottles, roundId, onValidated }: HostValidationFormProps) {
@@ -34,7 +36,7 @@ export default function HostValidationForm({ bottles, roundId, onValidated }: Ho
   const { data: grapes = [] } = useWineGrapes();
 
   const [inputs, setInputs] = useState<Record<number, BottleInput>>(
-    Object.fromEntries(bottles.map((b) => [b.position, { trueColor: '', trueGrape: [], trueGlassPosition: '' }])),
+    Object.fromEntries(bottles.map((b) => [b.position, { trueColor: '', trueGrape: [], trueGlassPosition: '', trueYear: '' }])),
   );
 
   const updateField = (position: number, field: keyof BottleInput, value: string | string[]) => {
@@ -46,7 +48,7 @@ export default function HostValidationForm({ bottles, roundId, onValidated }: Ho
 
   const allFilled = bottles.every((b) => {
     const inp = inputs[b.position];
-    return inp.trueColor && inp.trueGrape.length > 0 && inp.trueGlassPosition;
+    return inp.trueColor && inp.trueGrape.length > 0 && inp.trueGlassPosition && inp.trueYear;
   });
 
   const handleValidate = async () => {
@@ -55,6 +57,7 @@ export default function HostValidationForm({ bottles, roundId, onValidated }: Ho
       trueColor: inputs[b.position].trueColor,
       trueGrape: inputs[b.position].trueGrape.join(', '),
       trueGlassPosition: parseInt(inputs[b.position].trueGlassPosition, 10),
+      trueYear: parseInt(inputs[b.position].trueYear, 10),
     }));
     const result = await validateRound.mutateAsync({ roundId, bottles: payload });
     onValidated(result.scores);
@@ -125,6 +128,16 @@ export default function HostValidationForm({ bottles, roundId, onValidated }: Ho
                 <MenuItem value="3">Verre 3</MenuItem>
               </Select>
             </FormControl>
+
+            <TextField
+              fullWidth
+              size="small"
+              label="Année / Millésime"
+              type="number"
+              value={inputs[bottle.position].trueYear}
+              onChange={(e) => updateField(bottle.position, 'trueYear', e.target.value)}
+              slotProps={{ htmlInput: { min: 1900, max: new Date().getFullYear() } }}
+            />
           </Stack>
         </Paper>
       ))}

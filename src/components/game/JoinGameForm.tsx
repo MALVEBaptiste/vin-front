@@ -9,7 +9,7 @@ export default function JoinGameForm() {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { setCurrentGame } = useGame();
+  const { setCurrentGame, setCurrentRound } = useGame();
   const navigate = useNavigate();
 
   const handleJoin = async () => {
@@ -18,6 +18,7 @@ export default function JoinGameForm() {
     setError('');
     try {
       const game = await joinGame(code.toUpperCase());
+      setCurrentRound(null);
       setCurrentGame(game);
       navigate(`/game/${game.code}`);
     } catch {

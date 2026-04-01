@@ -32,7 +32,7 @@ export function useRound() {
   const validateRound = useMutation({
     mutationFn: (data: {
       roundId: string;
-      bottles: { position: number; trueColor: string; trueGrape: string; trueGlassPosition: number }[];
+      bottles: { position: number; trueColor: string; trueGrape: string; trueGlassPosition: number; trueYear: number }[];
     }) => roundApi.validateRound(data.roundId, data.bottles),
   });
 

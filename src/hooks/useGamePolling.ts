@@ -15,7 +15,7 @@ export function useGamePolling() {
         getCurrentRound(currentGame.code),
       ]);
       setCurrentGame(game);
-      if (round) setCurrentRound(round);
+      setCurrentRound(round ?? null);
       return game;
     },
     enabled: !!currentGame,

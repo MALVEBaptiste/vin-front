@@ -7,6 +7,7 @@ import RoundPhaseIndicator from '../components/round/RoundPhaseIndicator';
 import ColorPicker from '../components/round/ColorPicker';
 import GrapePicker from '../components/round/GrapePicker';
 import MatchingBoard from '../components/round/MatchingBoard';
+import YearPicker from '../components/round/YearPicker';
 import HostValidationForm from '../components/round/HostValidationForm';
 import RoundScoreboard from '../components/round/RoundScoreboard';
 import { useGame } from '../hooks/useGame';
@@ -39,7 +40,7 @@ export default function GameRoomPage() {
           getCurrentRound(code),
         ]);
         setCurrentGame(game);
-        if (round) setCurrentRound(round);
+        setCurrentRound(round ?? null);
       } catch {
         navigate('/lobby');
       } finally {
@@ -108,6 +109,15 @@ export default function GameRoomPage() {
                 />
               )}
 
+              {/* YEAR Phase */}
+              {currentRound.status === RoundStatus.YEAR && (
+                <YearPicker
+                  bottles={currentRound.bottles}
+                  roundId={currentRound.id}
+                  onDone={() => {}}
+                />
+              )}
+
               {/* MATCHING Phase */}
               {currentRound.status === RoundStatus.MATCHING && (
                 <MatchingBoard
@@ -153,7 +163,7 @@ export default function GameRoomPage() {
 
                 <Stack direction="row" spacing={2} justifyContent="center"
                   >
-                {[RoundStatus.COLOR, RoundStatus.GRAPE, RoundStatus.MATCHING].includes(currentRound.status) && (
+                {[RoundStatus.COLOR, RoundStatus.GRAPE, RoundStatus.YEAR, RoundStatus.MATCHING].includes(currentRound.status) && (
                   <>
                     <Button
                       variant="outlined"

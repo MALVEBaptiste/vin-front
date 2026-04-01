@@ -2,6 +2,7 @@ export enum RoundStatus {
   PENDING = 'PENDING',
   COLOR = 'COLOR',
   GRAPE = 'GRAPE',
+  YEAR = 'YEAR',
   MATCHING = 'MATCHING',
   SCORING = 'SCORING',
   DONE = 'DONE',
@@ -10,12 +11,14 @@ export enum RoundStatus {
 export enum RoundPhase {
   COLOR = 'COLOR',
   GRAPE = 'GRAPE',
+  YEAR = 'YEAR',
   MATCHING = 'MATCHING',
 }
 
 export const RoundPhaseLabels: Record<RoundPhase, string> = {
   [RoundPhase.COLOR]: 'Couleur',
   [RoundPhase.GRAPE]: 'Cépage',
+  [RoundPhase.YEAR]: 'Année',
   [RoundPhase.MATCHING]: 'Association',
 };
 
@@ -26,6 +29,7 @@ export interface Bottle {
   trueColor: string | null;
   trueGrape: string | null;
   trueName: string | null;
+  trueYear: number | null;
 }
 
 export interface Answer {

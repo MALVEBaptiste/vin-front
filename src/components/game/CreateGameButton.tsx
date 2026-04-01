@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function CreateGameButton() {
-  const { setCurrentGame } = useGame();
+  const { setCurrentGame, setCurrentRound } = useGame();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -14,6 +14,7 @@ export default function CreateGameButton() {
     setLoading(true);
     try {
       const game = await createGame();
+      setCurrentRound(null);
       setCurrentGame(game);
       navigate(`/game/${game.code}`);
     } finally {

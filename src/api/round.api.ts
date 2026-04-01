@@ -17,7 +17,7 @@ export const advancePhase = (roundId: string, force: boolean = false) =>
 
 export const validateRound = (
   roundId: string,
-  bottles: { position: number; trueColor: string; trueGrape: string; trueGlassPosition: number }[],
+  bottles: { position: number; trueColor: string; trueGrape: string; trueGlassPosition: number; trueYear: number }[],
 ) =>
   client
     .post<{ scores: Record<string, { points: number; bonus: boolean }> }>(

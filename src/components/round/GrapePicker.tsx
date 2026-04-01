@@ -76,11 +76,11 @@ export default function GrapePicker({
         Quel(s) cépage(s) pour chaque bouteille ?
       </Typography>
 
-      <Grid container spacing={1}>
+      <Grid container sx={{width: "100%"}} spacing={1}>
         {bottles.map((b) => {
           const sel = selections[b.id] ?? [];
           return (
-            <Grid key={b.id} size={3}>
+            <Grid key={b.id} size={4} sx={{ display: "flex", justifyContent:"center", alignItems: "center" }}>
               <Chip
                 key={b.id}
                 label={`Bouteille ${b.position}${sel.length ? ` (${sel.length})` : ""}`}
@@ -122,16 +122,13 @@ export default function GrapePicker({
         disabled={submitAnswer.isPending}
       />
 
-      <Box
-        sx={{
-          display: "flex",
-          gap: 0.5,
-          flexWrap: "wrap",
-          maxHeight: 200,
-          overflowY: "auto",
-        }}
+      <Grid
+        container
+        spacing={1}
+        sx={{ maxHeight: 400, overflowY: "auto", width: "100%" }}
       >
         {filtered.map((g) => (
+          <Grid key={g.id} size={3} sx={{ display: "flex", justifyContent:"flex-start", alignItems: "center" }}>
           <Chip
             key={g.id}
             label={g.name}
@@ -141,8 +138,9 @@ export default function GrapePicker({
             disabled={submitAnswer.isPending}
             sx={{ cursor: "pointer" }}
           />
+          </Grid>
         ))}
-      </Box>
+      </Grid>
 
       {!submitted ? (
         <Button

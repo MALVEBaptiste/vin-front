@@ -4,6 +4,7 @@ import { RoundStatus } from '../../types/round.types';
 const STEPS = [
   { label: 'Couleur', statuses: [RoundStatus.COLOR] },
   { label: 'Cépage', statuses: [RoundStatus.GRAPE] },
+  { label: 'Année', statuses: [RoundStatus.YEAR] },
   { label: 'Association', statuses: [RoundStatus.MATCHING] },
   { label: 'Résultats', statuses: [RoundStatus.SCORING, RoundStatus.DONE] },
 ];
