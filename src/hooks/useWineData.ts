@@ -12,7 +12,7 @@ export function useWineColors() {
 export function useWineGrapes(color?: string) {
   return useQuery({
     queryKey: ['wine-grapes', color],
-    queryFn: () => getGrapes(color),
+    queryFn: () => getGrapes(),
     staleTime: 5 * 60 * 1000,
   });
 }

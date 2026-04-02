@@ -6,7 +6,8 @@ import {
   Button,
   Stack,
   TextField,
-  Alert
+  Alert,
+  Tooltip
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import type { Bottle } from "../../types/round.types";
@@ -35,10 +36,12 @@ export default function GrapePicker({
     bottles[0]?.id ?? "",
   );
 
+  // Récupérer la couleur sélectionnée pour la bouteille active (optionnel pour filtrer)
   const { data: grapes = [] } = useWineGrapes();
 
   const filtered = grapes.filter((g) =>
-    g.name.toLowerCase().includes(filter.toLowerCase()),
+    g.name.toLowerCase().includes(filter.toLowerCase()) ||
+    g.synonyms?.some((s) => s.toLowerCase().includes(filter.toLowerCase()))
   );
 
   const handleToggle = (bottleId: string, grapeName: string) => {
@@ -129,16 +132,46 @@ export default function GrapePicker({
       <Box
         sx={{ maxHeight: 400, overflowY: "auto", width: "100%", display: "flex", gap: 1, flexWrap: "wrap" }}
       >
-        {filtered.map((g) => (
-          <Chip
-            key={g.id}
-            label={g.name}
-            onClick={() => handleToggle(activeBottle, g.name)}
-            color={activeSelections.includes(g.name) ? "secondary" : "default"}
-            variant={activeSelections.includes(g.name) ? "filled" : "outlined"}
-            disabled={submitAnswer.isPending}
-            sx={{ cursor: "pointer", whiteSpace: "nowrap" }}
-          />
+        {filtered.map((grape) => (
+          <Tooltip
+            key={grape.id}
+            title={
+              <Box sx={{ fontSize: '0.875rem' }}>
+                <Typography variant="caption" sx={{ display: 'block', fontWeight: 'bold', color: 'white' }}>
+                  {grape.name}
+                </Typography>
+                {grape.synonyms && grape.synonyms.length > 0 && (
+                  <Typography variant="caption" sx={{ display: 'block', mt: 0.5, color: 'white' }}>
+                    <strong>Synonymes:</strong> {grape.synonyms.join(', ')}
+                  </Typography>
+                )}
+                <Typography variant="caption" sx={{ display: 'block', mt: 0.5, color: 'white' }}>
+                  <strong>Régions:</strong> {grape.regions.join(', ')}
+                </Typography>
+                <Typography variant="caption" sx={{ display: 'block', mt: 0.5, color: 'white' }}>
+                  <strong>Arômes:</strong> {grape.aromas.join(', ')}
+                </Typography>
+              </Box>
+            }
+            arrow
+            slotProps={{
+              tooltip: {
+                sx: {
+                  bgcolor: 'rgba(0, 0, 0, 0.85)',
+                  maxWidth: '300px'
+                }
+              }
+            }}
+          >
+            <Chip
+              label={grape.name}
+              onClick={() => handleToggle(activeBottle, grape.name)}
+              color={activeSelections.includes(grape.name) ? "secondary" : "default"}
+              variant={activeSelections.includes(grape.name) ? "filled" : "outlined"}
+              disabled={submitAnswer.isPending}
+              sx={{ cursor: "pointer", whiteSpace: "nowrap" }}
+            />
+          </Tooltip>
         ))}
       </Box>
 
