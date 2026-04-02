@@ -5,7 +5,8 @@ import {
   Chip,
   Button,
   Stack,
-  TextField
+  TextField,
+  Alert
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import type { Bottle } from "../../types/round.types";
@@ -73,6 +74,12 @@ export default function GrapePicker({
       <Typography variant="h5" textAlign="center">
         Quel(s) cépage(s) pour chaque bouteille ?
       </Typography>
+
+      <Alert severity="info" sx={{ bgcolor: 'info.lighter' }}>
+        <Typography variant="body2">
+          <strong>Cépages :</strong> +1 point par cépage trouvé. Malus si vous en indiquez plus que le vin ne contient.
+        </Typography>
+      </Alert>
 
       <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", justifyContent: "center" }}>
         {bottles.map((b) => {

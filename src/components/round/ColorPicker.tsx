@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-  Button,
-  Stack,
+    Box,
+    Card,
+    CardActionArea,
+    CardContent,
+    Typography,
+    Button,
+    Stack,
+    Alert,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import type { Bottle } from '../../types/round.types';
@@ -61,6 +62,12 @@ export default function ColorPicker({ bottles, roundId }: ColorPickerProps) {
       <Typography variant="h5" textAlign="center">
         Quelle couleur pour chaque bouteille ?
       </Typography>
+
+      <Alert severity="info" sx={{ bgcolor: 'info.lighter' }}>
+        <Typography variant="body2">
+          <strong>Couleur :</strong> +1 point pour la bonne couleur
+        </Typography>
+      </Alert>
 
       {bottles.map((bottle) => (
         <Box key={bottle.id}>

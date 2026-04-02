@@ -3,10 +3,11 @@ import {
   Typography,
   Button,
   Stack,
-  TextField,
-  Grid,
-  Chip,
+  TextField, Chip,
   Box,
+  Alert,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import type { Bottle } from '../../types/round.types';
@@ -22,6 +23,8 @@ interface YearPickerProps {
 const currentYear = new Date().getFullYear();
 
 export default function YearPicker({ bottles, roundId }: YearPickerProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { submitAnswer } = useRound();
   const { isHost } = useGame();
   const [selections, setSelections] = useState<Record<string, string>>({});
@@ -59,21 +62,27 @@ export default function YearPicker({ bottles, roundId }: YearPickerProps) {
         Quelle année pour chaque bouteille ?
       </Typography>
 
-      <Grid container spacing={1}>
+      <Alert severity="info" sx={{ bgcolor: 'info.lighter' }}>
+        <Typography variant="body2">
+          <strong>Année :</strong> +2 points si exacte | +1 point si proche (N-1 ou N+1)
+        </Typography>
+      </Alert>
+      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
         {bottles.map((b) => {
           const val = selections[b.id];
+          const label = isMobile ? `Bouteille ${b.position}${val ? ` (${val})` : ''}` : `Bouteille ${b.position}${val ? ` (${val})` : ''}`;
           return (
-            <Grid key={b.id} size={3}>
-              <Chip
-                label={`Bouteille ${b.position}${val ? ` (${val})` : ''}`}
-                onClick={() => setActiveBottle(b.id)}
-                color={activeBottle === b.id ? 'secondary' : 'default'}
-                variant={activeBottle === b.id ? 'filled' : 'outlined'}
-              />
-            </Grid>
+            <Chip
+              key={b.id}
+              label={label}
+              onClick={() => setActiveBottle(b.id)}
+              color={activeBottle === b.id ? 'secondary' : 'default'}
+              variant={activeBottle === b.id ? 'filled' : 'outlined'}
+              sx={{ whiteSpace: 'nowrap' }}
+            />
           );
         })}
-      </Grid>
+      </Box>
 
       <TextField
         label={`Millésime — Bouteille ${bottles.find((b) => b.id === activeBottle)?.position ?? ''}`}

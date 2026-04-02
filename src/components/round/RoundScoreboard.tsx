@@ -59,12 +59,17 @@ export default function RoundScoreboard({
     enabled: !!selectedPlayerId,
   });
 
+  // Get username from leaderboard
+  const getUsernameById = (playerId: string) => {
+    return leaderboard.find((l) => l.playerId === playerId)?.username || playerId;
+  };
+
   // Merge validation scores if we just validated
   const displayScores = validationScores
     ? Object.entries(validationScores)
         .map(([playerId, s]) => ({
           playerId,
-          username: playerId,
+          username: getUsernameById(playerId),
           points: s.points,
           bonus: s.bonus,
         }))
@@ -217,7 +222,7 @@ export default function RoundScoreboard({
                       </Box>
                     </Stack>
                   </Box>
-                  {idx % 3 === 2 && <Divider sx={{ borderColor: (theme) => alpha(theme.palette.divider, 0.2), mt: 2, borderWidth: 3, borderRadius: 2}} />}
+                  {idx % 4 === 3 && <Divider sx={{ borderColor: (theme) => alpha(theme.palette.divider, 0.2), mt: 2, borderWidth: 3, borderRadius: 2}} />}
                 </Box>
               ))}
               

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Typography, Button, Stack } from '@mui/material';
+import { Box, Typography, Button, Stack, Alert } from '@mui/material';
 import {
   DndContext,
   type DragEndEvent,
@@ -110,6 +110,12 @@ export default function MatchingBoard({ bottles, roundId }: MatchingBoardProps) 
       <Typography variant="body2" color="text.secondary" textAlign="center">
         Glissez les verres vers les bouteilles correspondantes
       </Typography>
+
+      <Alert severity="info" sx={{ bgcolor: 'info.lighter' }}>
+        <Typography variant="body2">
+          <strong>Attribution :</strong> +1 point par attribution correcte
+        </Typography>
+      </Alert>
 
       <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
         <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', flexWrap: 'wrap' }}>
