@@ -34,6 +34,7 @@ export default function GlassCard({ id, position }: GlassCardProps) {
         gap: 1,
         bgcolor: isDragging ? 'action.hover' : 'background.paper',
         transition: isDragging ? 'none' : 'all 0.2s',
+        touchAction: 'none',
       }}
     >
       <WineBarIcon sx={{ color: 'secondary.main' }} />

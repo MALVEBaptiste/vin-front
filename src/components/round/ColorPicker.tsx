@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import {
-    Box,
-    Card,
-    CardActionArea,
-    CardContent,
-    Typography,
-    Button,
-    Stack,
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+  Button,
+  Stack,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import type { Bottle } from '../../types/round.types';
@@ -26,10 +26,9 @@ const COLOR_HEX: Record<string, string> = {
 interface ColorPickerProps {
   bottles: Bottle[];
   roundId: string;
-  onDone: () => void;
 }
 
-export default function ColorPicker({ bottles, roundId, onDone }: ColorPickerProps) {
+export default function ColorPicker({ bottles, roundId }: ColorPickerProps) {
   const { data: colors = [] } = useWineColors();
   const { submitAnswer } = useRound();
   const { isHost } = useGame();

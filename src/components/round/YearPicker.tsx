@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import {
-    Typography,
-    Button,
-    Stack,
-    TextField,
-    Grid,
-    Chip,
-    Box,
+  Typography,
+  Button,
+  Stack,
+  TextField,
+  Grid,
+  Chip,
+  Box,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import type { Bottle } from '../../types/round.types';
@@ -17,7 +17,6 @@ import { useGame } from '../../hooks/useGame';
 interface YearPickerProps {
   bottles: Bottle[];
   roundId: string;
-  onDone: () => void;
 }
 
 const currentYear = new Date().getFullYear();

@@ -96,7 +96,6 @@ export default function GameRoomPage() {
                 <ColorPicker
                   bottles={currentRound.bottles}
                   roundId={currentRound.id}
-                  onDone={() => {}}
                 />
               )}
 
@@ -105,7 +104,6 @@ export default function GameRoomPage() {
                 <GrapePicker
                   bottles={currentRound.bottles}
                   roundId={currentRound.id}
-                  onDone={() => {}}
                 />
               )}
 
@@ -114,7 +112,6 @@ export default function GameRoomPage() {
                 <YearPicker
                   bottles={currentRound.bottles}
                   roundId={currentRound.id}
-                  onDone={() => {}}
                 />
               )}
 
@@ -123,7 +120,6 @@ export default function GameRoomPage() {
                 <MatchingBoard
                   bottles={currentRound.bottles}
                   roundId={currentRound.id}
-                  onDone={() => {}}
                 />
               )}
 

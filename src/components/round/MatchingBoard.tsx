@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import {
-    DndContext,
-    type DragEndEvent,
-    PointerSensor,
-    useSensor,
-    useSensors,
-    closestCorners,
+  DndContext,
+  type DragEndEvent,
+  PointerSensor, TouchSensor, useSensor,
+  useSensors,
+  closestCorners,
 } from '@dnd-kit/core';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import GlassCard from './GlassCard';
@@ -19,13 +18,24 @@ import { useGame } from '../../hooks/useGame';
 interface MatchingBoardProps {
   bottles: Bottle[];
   roundId: string;
-  onDone: () => void;
 }
 
 export default function MatchingBoard({ bottles, roundId }: MatchingBoardProps) {
   const { submitAnswer } = useRound();
   const { isHost } = useGame();
-  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+  const sensors = useSensors(
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 5,
+      },
+    }),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   // Maps bottleId -> glassPosition
   const [assignments, setAssignments] = useState<Record<string, number>>({});

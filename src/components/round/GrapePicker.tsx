@@ -5,8 +5,7 @@ import {
   Chip,
   Button,
   Stack,
-  TextField,
-  Grid,
+  TextField
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import type { Bottle } from "../../types/round.types";
@@ -19,13 +18,12 @@ interface GrapePickerProps {
   bottles: Bottle[];
   roundId: string;
   colorSelections?: Record<string, string>;
-  onDone: () => void;
 }
 
 export default function GrapePicker({
   bottles,
   roundId,
-  onDone,
+  
 }: GrapePickerProps) {
   const { submitAnswer } = useRound();
   const { isHost } = useGame();
@@ -76,22 +74,21 @@ export default function GrapePicker({
         Quel(s) cépage(s) pour chaque bouteille ?
       </Typography>
 
-      <Grid container sx={{width: "100%"}} spacing={1}>
+      <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", justifyContent: "center" }}>
         {bottles.map((b) => {
           const sel = selections[b.id] ?? [];
           return (
-            <Grid key={b.id} size={4} sx={{ display: "flex", justifyContent:"center", alignItems: "center" }}>
-              <Chip
-                key={b.id}
-                label={`Bouteille ${b.position}${sel.length ? ` (${sel.length})` : ""}`}
-                onClick={() => setActiveBottle(b.id)}
-                color={activeBottle === b.id ? "secondary" : "default"}
-                variant={activeBottle === b.id ? "filled" : "outlined"}
-              />
-            </Grid>
+            <Chip
+              key={b.id}
+              label={`Bouteille ${b.position}${sel.length ? ` (${sel.length})` : ""}`}
+              onClick={() => setActiveBottle(b.id)}
+              color={activeBottle === b.id ? "secondary" : "default"}
+              variant={activeBottle === b.id ? "filled" : "outlined"}
+              sx={{ whiteSpace: "nowrap" }}
+            />
           );
         })}
-      </Grid>
+      </Box>
 
       {activeSelections.length > 0 && (
         <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
@@ -122,13 +119,10 @@ export default function GrapePicker({
         disabled={submitAnswer.isPending}
       />
 
-      <Grid
-        container
-        spacing={1}
-        sx={{ maxHeight: 400, overflowY: "auto", width: "100%" }}
+      <Box
+        sx={{ maxHeight: 400, overflowY: "auto", width: "100%", display: "flex", gap: 1, flexWrap: "wrap" }}
       >
         {filtered.map((g) => (
-          <Grid key={g.id} size={3} sx={{ display: "flex", justifyContent:"flex-start", alignItems: "center" }}>
           <Chip
             key={g.id}
             label={g.name}
@@ -136,11 +130,10 @@ export default function GrapePicker({
             color={activeSelections.includes(g.name) ? "secondary" : "default"}
             variant={activeSelections.includes(g.name) ? "filled" : "outlined"}
             disabled={submitAnswer.isPending}
-            sx={{ cursor: "pointer" }}
+            sx={{ cursor: "pointer", whiteSpace: "nowrap" }}
           />
-          </Grid>
         ))}
-      </Grid>
+      </Box>
 
       {!submitted ? (
         <Button
